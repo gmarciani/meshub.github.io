@@ -80,13 +80,13 @@
         }
 
         .terminal .command-text:nth-child(3) {
-            animation: dissolve1 12s infinite;
+            animation: dissolve1 14s infinite;
         }
         .terminal .command-text:nth-child(4) {
-            animation: dissolve2 12s infinite;
+            animation: dissolve2 14s infinite;
         }
         .terminal .command-text:nth-child(5) {
-            animation: dissolve3 12s infinite;
+            animation: dissolve3 14s infinite;
         }
 
         @keyframes dissolve1 {
@@ -140,6 +140,7 @@
             border: 1px solid #cbd5f5;
             margin-bottom: 18px;
             outline: none;
+            box-sizing: border-box;
         }
 
         input:focus {
@@ -209,9 +210,9 @@
 <!-- Email Subscription -->
 <div class="card">
     <div class="card-title">Join the Beta</div>
-    <p class="card-subtitle">Enter your email to get early access when Meshub launches.</p>
+    <p class="card-subtitle">Enter your email to get early access</p>
 
-    <input id="email-input" type="email" placeholder="myself@me.com" required />
+    <input id="email-input" type="email" placeholder="youremail@domain.com" required />
     <button id="submit-btn">Submit</button>
 
     <p id="status-msg" style="display:none;"></p>
