@@ -17,7 +17,7 @@ npm install
 npm run dev
 ```
 
-Visit http://localhost:3000/index-beta to see the React app.
+Visit http://localhost:3000 to see the React app.
 
 ## Building for GitHub Pages
 
@@ -39,16 +39,3 @@ npm run clean
 ```
 
 This removes the `.next` cache directory and `out` build directory.
-
-## Project Structure
-
-- `src/pages/index-beta.tsx` - The React component for /index-beta
-- `src/pages/_app.tsx` - Next.js app wrapper
-- `next.config.js` - Next.js configuration for static export
-- `docs/` - GitHub Pages output directory
-
-## Accessing the App
-
-After pushing to GitHub:
-- Main site: `https://[username].github.io/[repo]/`
-- Beta app: `https://[username].github.io/[repo]/index-beta/`
