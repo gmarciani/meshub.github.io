@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 import { Metadata } from 'next';
 import { ThemeProvider } from 'next-themes';
 import { TooltipProvider } from '@radix-ui/react-tooltip';
+import GoogleAnalytics from '@/components/google-analytics';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -28,6 +29,9 @@ export default async function RootLayout({
 }) {
   return (
     <html className="h-full" suppressHydrationWarning>
+      <head>
+        <GoogleAnalytics />
+      </head>
       <body
         className={cn(
           'antialiased text-base text-foreground bg-background',

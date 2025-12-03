@@ -8,6 +8,7 @@ export const siteConfig = {
 		twitter: "https://x.com/gmarciani",
 		github: "https://github.com/gmarciani/meshub.github.io",
 	},
+	googleAnalyticsId: "G-1F6X934G92",
 };
 
 export type SiteConfig = typeof siteConfig;
