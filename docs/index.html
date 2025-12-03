@@ -1,290 +1,347 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>meshub – The first global API for institutional data</title>
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235850ec'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E" type="image/svg+xml">
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235850ec'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z'/%3E%3C/svg%3E"
+      type="image/svg+xml"
+    />
 
     <style>
-        body {
-            margin: 0;
-            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: radial-gradient(circle at 10% 0%, #e8f4ff, #f9f0ff 55%, #fef6ff 90%);
-            color: #1a1a1a;
-            overflow-x: hidden;
-        }
+      body {
+        margin: 0;
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        background: radial-gradient(
+          circle at 10% 0%,
+          #e8f4ff,
+          #f9f0ff 55%,
+          #fef6ff 90%
+        );
+        color: #1a1a1a;
+        overflow-x: hidden;
+      }
 
-        header {
-            text-align: center;
-            padding: 80px 20px 20px;
-        }
+      header {
+        text-align: center;
+        padding: 80px 20px 20px;
+      }
 
-        h1 {
-            font-size: 3.4rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #2684ff, #5850ec, #9b51e0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 16px;
-            text-transform: lowercase;
-        }
+      h1 {
+        font-size: 3.4rem;
+        font-weight: 700;
+        background: linear-gradient(90deg, #2684ff, #5850ec, #9b51e0);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 16px;
+        text-transform: lowercase;
+      }
 
-        h2 {
-            font-size: 1.8rem;
-            font-weight: 500;
-            color: #333;
-        }
+      h2 {
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: #333;
+      }
 
-        .highlight-claim {
-            color: #5a3bea;
-            font-weight: 700;
-        }
+      .highlight-claim {
+        color: #5a3bea;
+        font-weight: 700;
+      }
 
-        /* Terminal Box */
-        .terminal {
-            max-width: 650px;
-            margin: 40px auto;
-            background: #1c2230;
-            border-radius: 18px;
-            padding: 24px;
-            color: #e5e7eb;
-            font-family: "JetBrains Mono", monospace;
-            font-size: 1rem;
-            box-shadow: 0 14px 40px rgba(0,0,0,0.18);
-        }
+      /* Terminal Box */
+      .terminal {
+        max-width: 650px;
+        margin: 40px auto;
+        background: #1c2230;
+        border-radius: 18px;
+        padding: 24px;
+        color: #e5e7eb;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 1rem;
+        box-shadow: 0 14px 40px rgba(0, 0, 0, 0.18);
+      }
 
-        .terminal .command {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: white;
-            position: relative;
-        }
+      .terminal .command {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        position: relative;
+      }
 
-        .terminal .symbol {
-            color: #3ce4bb;
-            font-weight: 700;
-        }
+      .terminal .symbol {
+        color: #3ce4bb;
+        font-weight: 700;
+      }
 
-        .terminal .cmd-meshub {
-            color: #50e3c2;
-            font-weight: 600;
-        }
+      .terminal .cmd-meshub {
+        color: #50e3c2;
+        font-weight: 600;
+      }
 
-        .terminal .command-text {
-            position: absolute;
-            left: 80px;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
+      .terminal .command-text {
+        position: absolute;
+        left: 80px;
+        opacity: 0;
+        transition: opacity 0.5s ease;
+      }
 
-        .terminal .command-text:nth-child(3) {
-            animation: dissolve1 14s infinite;
-        }
-        .terminal .command-text:nth-child(4) {
-            animation: dissolve2 14s infinite;
-        }
-        .terminal .command-text:nth-child(5) {
-            animation: dissolve3 14s infinite;
-        }
+      .terminal .command-text:nth-child(3) {
+        animation: dissolve1 14s infinite;
+      }
+      .terminal .command-text:nth-child(4) {
+        animation: dissolve2 14s infinite;
+      }
+      .terminal .command-text:nth-child(5) {
+        animation: dissolve3 14s infinite;
+      }
 
-        @keyframes dissolve1 {
-            0%, 27.77% { opacity: 1; }
-            33.33%, 100% { opacity: 0; }
+      @keyframes dissolve1 {
+        0%,
+        27.77% {
+          opacity: 1;
         }
+        33.33%,
+        100% {
+          opacity: 0;
+        }
+      }
 
-        @keyframes dissolve2 {
-            0%, 33.33% { opacity: 0; }
-            38.88%, 61.11% { opacity: 1; }
-            66.66%, 100% { opacity: 0; }
+      @keyframes dissolve2 {
+        0%,
+        33.33% {
+          opacity: 0;
         }
+        38.88%,
+        61.11% {
+          opacity: 1;
+        }
+        66.66%,
+        100% {
+          opacity: 0;
+        }
+      }
 
-        @keyframes dissolve3 {
-            0%, 66.66% { opacity: 0; }
-            72.22%, 94.44% { opacity: 1; }
-            100% { opacity: 0; }
+      @keyframes dissolve3 {
+        0%,
+        66.66% {
+          opacity: 0;
         }
+        72.22%,
+        94.44% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
 
-        /* Card */
-        .card {
-            max-width: 560px;
-            margin: 40px auto 60px;
-            padding: 40px;
-            border-radius: 22px;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(18px);
-            text-align: center;
-            box-shadow: 0 14px 38px rgba(148, 163, 184, 0.25);
-        }
+      /* Card */
+      .card {
+        max-width: 560px;
+        margin: 40px auto 60px;
+        padding: 40px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(18px);
+        text-align: center;
+        box-shadow: 0 14px 38px rgba(148, 163, 184, 0.25);
+      }
 
-        .card-title {
-            font-size: 1.9rem;
-            margin-bottom: 18px;
-            color: #111827;
-            font-weight: 700;
-        }
+      .card-title {
+        font-size: 1.9rem;
+        margin-bottom: 18px;
+        color: #111827;
+        font-weight: 700;
+      }
 
-        .card-subtitle {
-            margin-top: 0;
-            margin-bottom: 26px;
-            color: #444;
-            font-size: 1rem;
-        }
+      .card-subtitle {
+        margin-top: 0;
+        margin-bottom: 26px;
+        color: #444;
+        font-size: 1rem;
+      }
 
-        input {
-            width: 100%;
-            padding: 16px 18px;
-            font-size: 1rem;
-            border-radius: 12px;
-            border: 1px solid #cbd5f5;
-            margin-bottom: 18px;
-            outline: none;
-            box-sizing: border-box;
-        }
+      input {
+        width: 100%;
+        padding: 16px 18px;
+        font-size: 1rem;
+        border-radius: 12px;
+        border: 1px solid #cbd5f5;
+        margin-bottom: 18px;
+        outline: none;
+        box-sizing: border-box;
+      }
 
-        input:focus {
-            border-color: #6366f1;
-            box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.4);
-        }
+      input:focus {
+        border-color: #6366f1;
+        box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.4);
+      }
 
-        button {
-            width: 100%;
-            padding: 14px;
-            font-size: 1rem;
-            border-radius: 12px;
-            border: none;
-            background: linear-gradient(90deg, #1cc8ff, #2684ff, #7c3aed);
-            color: #fff;
-            cursor: pointer;
-            font-weight: 600;
-            letter-spacing: 0.4px;
-            transition: transform 0.12s ease, box-shadow 0.12s ease;
-        }
+      button {
+        width: 100%;
+        padding: 14px;
+        font-size: 1rem;
+        border-radius: 12px;
+        border: none;
+        background: linear-gradient(90deg, #1cc8ff, #2684ff, #7c3aed);
+        color: #fff;
+        cursor: pointer;
+        font-weight: 600;
+        letter-spacing: 0.4px;
+        transition:
+          transform 0.12s ease,
+          box-shadow 0.12s ease;
+      }
 
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
-        }
+      button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 24px rgba(37, 99, 235, 0.35);
+      }
 
-        footer {
-            text-align: center;
-            margin-bottom: 40px;
-            font-size: 0.9rem;
-            color: #6b7280;
-        }
+      footer {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 0.9rem;
+        color: #6b7280;
+      }
     </style>
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1F6X934G92"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-1F6X934G92"
+    ></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
 
-        gtag('config', 'G-1F6X934G92');
+      gtag("config", "G-1F6X934G92");
     </script>
+  </head>
 
-</head>
+  <body>
+    <header>
+      <h1>meshub</h1>
+      <h2>
+        The first global API for
+        <span class="highlight-claim">institutional data.</span>
+      </h2>
+    </header>
 
-<body>
-
-<header>
-    <h1>meshub</h1>
-    <h2>
-        The first global API for <span class="highlight-claim">institutional data.</span>
-    </h2>
-</header>
-
-<!-- Terminal -->
-<div class="terminal">
-    <div class="command">
+    <!-- Terminal -->
+    <div class="terminal">
+      <div class="command">
         <span class="symbol">$</span>
         <span class="cmd-meshub">meshub</span>
         <span class="command-text">justice describe-crimes --country usa</span>
-        <span class="command-text">government describe-laws --law-id 123-456 --country usa</span>
-        <span class="command-text">business describe-companies --name smart-llc --country usa</span>
+        <span class="command-text"
+          >government describe-laws --law-id 123-456 --country usa</span
+        >
+        <span class="command-text"
+          >business describe-companies --name smart-llc --country usa</span
+        >
+      </div>
     </div>
-</div>
 
-<!-- Email Subscription -->
-<div class="card">
-    <div class="card-title">Join the Beta</div>
-    <p class="card-subtitle">Enter your email to get early access</p>
+    <!-- Email Subscription -->
+    <div class="card">
+      <div class="card-title">Join the Beta</div>
+      <p class="card-subtitle">Enter your email to get early access</p>
 
-    <input id="email-input" type="email" placeholder="your@email.com" required />
-    <button id="submit-btn">Submit</button>
+      <input
+        id="email-input"
+        type="email"
+        placeholder="your@email.com"
+        required
+      />
+      <button id="submit-btn">Submit</button>
 
-    <p id="status-msg" style="display:none;"></p>
-</div>
+      <p id="status-msg" style="display: none"></p>
+    </div>
 
-<footer>
-    © 2025 meshub. All rights reserved.<br>
-    <a href="mailto:support@meshub.us" style="color: #5a3bea; text-decoration: none;">support@meshub.us</a>
-</footer>
+    <footer>
+      © 2025 meshub. All rights reserved.<br />
+      <a
+        href="mailto:support@meshub.us"
+        style="color: #5a3bea; text-decoration: none"
+        >support@meshub.us</a
+      >
+    </footer>
 
-<script>
-    document.getElementById("submit-btn").addEventListener("click", async function () {
-        const email = document.getElementById("email-input").value;
-        const status = document.getElementById("status-msg");
+    <script>
+      document
+        .getElementById("submit-btn")
+        .addEventListener("click", async function () {
+          const email = document.getElementById("email-input").value;
+          const status = document.getElementById("status-msg");
 
-        if (!email) {
+          if (!email) {
             status.innerText = "Please enter a valid email.";
             status.style.display = "block";
             return;
-        }
+          }
 
-        const portalId = "244447423";
-        const formId = "50cf131a-94cc-4607-9cfb-0d12dbdf6a89";
-        const url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
+          const portalId = "244447423";
+          const formId = "50cf131a-94cc-4607-9cfb-0d12dbdf6a89";
+          const url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
 
-        // Get hubspot cookie (if present)
-        const hutk = document.cookie
+          // Get hubspot cookie (if present)
+          const hutk = document.cookie
             .split("; ")
-            .find(row => row.startsWith("hubspotutk="))
+            .find((row) => row.startsWith("hubspotutk="))
             ?.split("=")[1];
 
-        // Build the context object dynamically
-        const context = {
+          // Build the context object dynamically
+          const context = {
             pageUri: window.location.href,
-            pageName: document.title
-        };
+            pageName: document.title,
+          };
 
-        if (hutk) {
-            context.hutk = hutk;   // only include if valid
-        }
+          if (hutk) {
+            context.hutk = hutk; // only include if valid
+          }
 
-        const payload = {
-            fields: [
-                { name: "email", value: email }
-            ],
-            context: context
-        };
+          const payload = {
+            fields: [{ name: "email", value: email }],
+            context: context,
+          };
 
-        try {
+          try {
             const res = await fetch(url, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(payload),
             });
 
             if (res.ok) {
-                status.innerText = "You're in! Check your inbox.";
-                status.style.display = "block";
-                status.style.color = "green";
+              status.innerText = "You're in! Check your inbox.";
+              status.style.display = "block";
+              status.style.color = "green";
             } else {
-                const errorText = await res.text();
-                console.error("HubSpot error", errorText);
-                status.innerText = "Something went wrong. Try again.";
-                status.style.display = "block";
-                status.style.color = "red";
+              const errorText = await res.text();
+              console.error("HubSpot error", errorText);
+              status.innerText = "Something went wrong. Try again.";
+              status.style.display = "block";
+              status.style.color = "red";
             }
-        } catch (err) {
+          } catch (err) {
             status.innerText = "Network error. Try again.";
             status.style.display = "block";
             status.style.color = "red";
-        }
-    });
-</script>
-</body>
+          }
+        });
+    </script>
+  </body>
 </html>
