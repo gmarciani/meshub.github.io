@@ -231,7 +231,7 @@ const Hero = () => {
             </span>
             <WordRotate
               words={rotatingWords}
-              className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent w-[510px] text-left"
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent text-center md:w-[510px] md:text-left"
             />
           </motion.h1>
 
