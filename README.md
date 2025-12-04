@@ -4,3 +4,26 @@
   <img src="public/meshub-logo.png" alt="meshub-logo" style="max-height:200px;">
 </div>
 
+## Requirements
+
+- [Node.js](https://nodejs.org/): Version 18.x or higher
+- [npm](https://www.npmjs.com/): Version 9.x or higher (comes with Node.js)
+
+## Installation
+
+Install dependencies:
+
+```bash
+nvm use
+npm install
+```
+
+## Getting Started
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
