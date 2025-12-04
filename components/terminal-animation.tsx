@@ -1,61 +1,85 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
+const commands = [
+  '$ meshub config set ApiKey **********',
+  '$ meshub justice describe-crimes --country usa',
+  '$ meshub government describe-laws --law-id 123-456 --country usa',
+  '$ meshub business describe-companies --name smart-llc --country usa'
+];
+
+const responses = [
+  '✓ API Key set',
+  '✓ { "id": "123-456", "type": "Burglary", "date": "2024-11-15", "location": "Boston, MA", ... }',
+  '✓ { "id": "123-456", "title": "Fair Labor Act", "jurisdiction": "Federal", ... }',
+  '✓ { "id": "123-456", "name": "Smart LLC", "state": "Delaware", ... }'
+];
+
 const TerminalAnimation = () => {
   const [currentLine, setCurrentLine] = useState(0);
   const [currentChar, setCurrentChar] = useState(0);
   const [displayedText, setDisplayedText] = useState<string[]>([]);
-
-  const commands = [
-    '$ curl -X GET "https://api.meshub.us/v1/justice/cases"',
-    '$ meshub query --dataset demographics --filter "age>25"',
-    '$ meshub analyze --type legislation --country US',
-    '$ meshub export --format json --output results.json'
-  ];
-
-  const responses = [
-    '✓ Connected to Meshub API',
-    '✓ Query executed successfully',
-    '✓ Analysis complete - 1,247 records found',
-    '✓ Data exported to results.json'
-  ];
+  const [isTypingCommand, setIsTypingCommand] = useState(true);
+  const [isComplete, setIsComplete] = useState(false);
 
   useEffect(() => {
-    if (currentLine >= commands.length) return;
+    if (isComplete || currentLine >= commands.length) return;
 
     const currentCommand = commands[currentLine];
     
-    if (currentChar < currentCommand.length) {
+    if (isTypingCommand && currentChar < currentCommand.length) {
+      // Type the command character by character with variable speed for realism
       const timer = setTimeout(() => {
         setDisplayedText(prev => {
           const newText = [...prev];
-          if (!newText[currentLine]) newText[currentLine] = '';
-          newText[currentLine] = currentCommand.slice(0, currentChar + 1);
+          const lineIndex = currentLine * 2; // Each command takes 2 lines (command + response)
+          newText[lineIndex] = currentCommand.slice(0, currentChar + 1);
           return newText;
         });
         setCurrentChar(prev => prev + 1);
-      }, 50);
+      }, 40 + Math.random() * 80); // Random delay between 40-120ms for realistic typing
       return () => clearTimeout(timer);
-    } else {
-      // Add response after command is complete
+    } else if (isTypingCommand && currentChar >= currentCommand.length) {
+      // Command finished typing, now add the response
       const timer = setTimeout(() => {
-        setDisplayedText(prev => [...prev, responses[currentLine]]);
-        setCurrentLine(prev => prev + 1);
+        setDisplayedText(prev => {
+          const newText = [...prev];
+          const responseIndex = currentLine * 2 + 1;
+          newText[responseIndex] = responses[currentLine];
+          return newText;
+        });
+        setIsTypingCommand(false);
         setCurrentChar(0);
-      }, 1000);
+      }, 600);
+      return () => clearTimeout(timer);
+    } else if (!isTypingCommand) {
+      // Response added, move to next command
+      const timer = setTimeout(() => {
+        if (currentLine + 1 >= commands.length) {
+          // All commands complete, mark as done
+          setIsComplete(true);
+        } else {
+          setCurrentLine(prev => prev + 1);
+          setIsTypingCommand(true);
+        }
+      }, 960);
       return () => clearTimeout(timer);
     }
-  }, [currentChar, currentLine]);
+  }, [currentChar, currentLine, isTypingCommand]);
 
-  // Reset animation every 15 seconds
+  // Wait 3 seconds after completion before resetting
   useEffect(() => {
-    const resetTimer = setInterval(() => {
-      setCurrentLine(0);
-      setCurrentChar(0);
-      setDisplayedText([]);
-    }, 15000);
-    return () => clearInterval(resetTimer);
-  }, []);
+    if (isComplete) {
+      const resetTimer = setTimeout(() => {
+        setCurrentLine(0);
+        setCurrentChar(0);
+        setDisplayedText([]);
+        setIsTypingCommand(true);
+        setIsComplete(false);
+      }, 3000);
+      return () => clearTimeout(resetTimer);
+    }
+  }, [isComplete]);
 
   return (
     <motion.div
@@ -76,17 +100,17 @@ const TerminalAnimation = () => {
         </div>
         
         {/* Terminal Content */}
-        <div className="p-6 font-mono text-sm min-h-[300px]">
+        <div className="p-6 font-mono text-sm min-h-[300px] text-left">
           {displayedText.map((line, index) => (
             <div key={index} className="mb-2">
-              {line.startsWith('$') ? (
+              {line && line.startsWith('$') ? (
                 <div className="text-green-400">
-                  <span className="text-blue-400">user@meshub</span>
+                  <span className="text-blue-400">user@host</span>
                   <span className="text-white">:</span>
                   <span className="text-blue-400">~</span>
                   <span className="text-white">{line}</span>
                   {/* Show cursor at end of current typing line */}
-                  {index === currentLine && currentLine < commands.length && (
+                  {index === currentLine * 2 && isTypingCommand && currentLine < commands.length && (
                     <motion.span
                       animate={{ opacity: [1, 0] }}
                       transition={{ duration: 0.8, repeat: Infinity }}
@@ -96,9 +120,9 @@ const TerminalAnimation = () => {
                     </motion.span>
                   )}
                 </div>
-              ) : (
-                <div className="text-gray-300 ml-4">{line}</div>
-              )}
+              ) : line ? (
+                <div className="text-green-400 ml-4">{line}</div>
+              ) : null}
             </div>
           ))}
         </div>
