@@ -1,7 +1,7 @@
-# MESHUB
+# MESHUB - Landing Page
 
-<div style="text-align:center;">
-  <img src="public/meshub-logo.png" alt="meshub-logo" style="max-height:200px;">
+<div align="center">
+<img src="public/meshub-logo.png" alt="meshub-logo" width="200">
 </div>
 
 ## Requirements
