@@ -34,7 +34,7 @@ const Footer = () => {
                 <Logo />
               </div>
               <p className="text-muted-foreground mb-6 max-w-sm">
-                Transform your business with our powerful platform. Scale faster, work smarter, grow bigger.
+                Access institutional data worldwide through one API. Query smarter, integrate faster, scale globally.
               </p>
               <div className="flex space-x-4">
                 {socialLinks.map((social, index) => (

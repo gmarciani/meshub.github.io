@@ -40,7 +40,7 @@ const HowItWorks = () => {
     },
     {
       id: 4,
-      title: "Institutions Earn Revenue",
+      title: "Institutions Monetize",
       description: "Data providers get paid automatically every time a consumer queries their data.",
       image: `${basePath}/screens/4.png`,
       icon: Wallet

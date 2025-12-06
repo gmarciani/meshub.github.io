@@ -105,8 +105,8 @@ const Contact = () => {
                 Let&apos;s Start a Conversation
               </h3>
               <p className="text-muted-foreground mb-8">
-                Whether you&apos;re looking to streamline your workflow, boost productivity, 
-                or transform your business operations, we&apos;re here to help you succeed.
+                Whether you&apos;re a developer seeking global institutional data 
+                or an institution ready to monetize your datasets, we&apos;re here to help you succeed.
               </p>
             </div>
 
