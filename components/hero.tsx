@@ -224,14 +224,14 @@ const Hero = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="font-black flex flex-col md:flex-row items-center gap-0.5 md:gap-4 justify-center text-3xl lg:text-7xl font-bold mb-4 lg:mb-8 leading-[1.2]"
+            className="font-black flex flex-col items-center gap-0.5 justify-center text-3xl lg:text-7xl font-bold mb-4 lg:mb-8 leading-[1.2]"
           >
             <span className="bg-gradient-to-r from-indigo-900 via-blue-900 to-indigo-900 dark:from-gray-50 dark:via-blue-300 dark:to-indigo-900 bg-clip-text text-transparent">
-              Global API for
+              The Global API for
             </span>
             <WordRotate
               words={rotatingWords}
-              className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent text-center md:w-[510px] md:text-left"
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent text-center"
             />
           </motion.h1>
 
@@ -242,7 +242,8 @@ const Hero = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-base md:text-xl text-muted-foreground mb-6 md:mb-10 max-w-[600px] mx-auto leading-relaxed"
           >
-            The first global API for institutional data.
+            We connect developers and agents to institutional data<br/>
+            all over the world.
           </motion.p>
 
           <motion.div
@@ -283,7 +284,7 @@ const Hero = () => {
                 ))}
               </div>
             </div>   
-            <div className="text-center text-muted-foreground text-sm font-medium">Trusted by thousands of enterprises</div>
+            <div className="text-center text-muted-foreground text-sm font-medium">Trusted by developers and institutions</div>
           </motion.div>
 
           {/* Terminal Animation */}
