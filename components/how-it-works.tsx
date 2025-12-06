@@ -6,7 +6,7 @@ import { CustomSubtitle } from '@/components/custom/subtitle';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
-import { Cable, ChartNoAxesCombined, Cog, CloudUpload } from 'lucide-react';
+import { Cable, Globe, CloudUpload, Wallet } from 'lucide-react';
 
 const HowItWorks = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -19,31 +19,31 @@ const HowItWorks = () => {
   const steps = [
     {
       id: 1,
-      title: "Connect Your Data",
-      description: "Seamlessly integrate your existing tools and data sources.",
+      title: "Institutions Connect Their Data",
+      description: "Data providers connect their institutional databases to our platform and set their terms.",
       image: `${basePath}/screens/4.png`,
-      icon: Cable
+      icon: CloudUpload
     },
     {
       id: 2,
-      title: "AI-Powered Analysis",
-      description: "Our advanced AI algorithms analyze your data patterns.",
+      title: "Data Goes Global",
+      description: "Datasets become instantly accessible through a unified REST API to consumers worldwide.",
       image: `${basePath}/screens/5.png`,
-      icon: ChartNoAxesCombined
+      icon: Globe
+    },
+    {
+      id: 3,
+      title: "Users Query Data",
+      description: "Developers purchase an API key and start querying institutional data in real-time.",
+      image: `${basePath}/screens/3.png`,
+      icon: Cable
     },
     {
       id: 4,
-      title: "Configure & Optimize",
-      description: "Launch your optimized solution and watch it scale automatically.",
-      image: `${basePath}/screens/3.png`,
-      icon: Cog
-    },
-    {
-      id: 5,
-      title: "Deploy & Scale",
-      description: "Launch your optimized solution and watch it scale automatically.",
+      title: "Institutions Earn Revenue",
+      description: "Data providers get paid automatically every time a consumer queries their data.",
       image: `${basePath}/screens/4.png`,
-      icon: CloudUpload
+      icon: Wallet
     },
   ];
 
@@ -100,7 +100,7 @@ const HowItWorks = () => {
           </CustomTitle>
           
           <CustomSubtitle>
-            Our streamlined process gets you up and running quickly, with powerful AI doing the heavy lifting.
+            The first global REST API connecting institutional data providers with developers worldwide.
           </CustomSubtitle>
         </motion.div>
 
