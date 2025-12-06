@@ -149,7 +149,7 @@ const CallToAction = () => {
                 disabled={isSubmitting}
                 onClick={() => handleSubmit('institution')}
               >
-                {isSubmitting ? 'Signing up...' : 'I want to provide data'}
+                {isSubmitting ? 'Signing up...' : 'I want to monetize data'}
               </Button>
             </div>
           </motion.div>
