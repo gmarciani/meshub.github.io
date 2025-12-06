@@ -7,6 +7,8 @@ import { Boxes } from '@/components/ui/background-boxes';
 import { useState } from 'react';
 import { toast } from 'sonner';
 
+type UserType = 'developer' | 'institution';
+
 const CallToAction = () => {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,8 +22,7 @@ const CallToAction = () => {
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (userType: UserType) => {
     if (!email) {
       toast.error('Please enter a valid email.');
       return;
@@ -30,7 +31,9 @@ const CallToAction = () => {
     setIsSubmitting(true);
     
     const portalId = "244447423";
-    const formId = "50cf131a-94cc-4607-9cfb-0d12dbdf6a89";
+    const formId = userType === 'developer' 
+      ? "50cf131a-94cc-4607-9cfb-0d12dbdf6a89" 
+      : "0b71f76b-4670-4656-afd3-fdff94156d7a";
     const url = `https://api.hsforms.com/submissions/v3/integration/submit/${portalId}/${formId}`;
 
     // Get hubspot cookie (if present)
@@ -40,7 +43,7 @@ const CallToAction = () => {
       ?.split("=")[1];
 
     // Build the context object dynamically
-    const context: any = {
+    const context: Record<string, string> = {
       pageUri: window.location.href,
       pageName: document.title
     };
@@ -112,33 +115,44 @@ const CallToAction = () => {
             Join the beta today
           </motion.h2>
           
-          <motion.form
-            onSubmit={handleSubmit}
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
             viewport={{ once: true }}
-            className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
+            className="flex flex-col gap-4 max-w-lg mx-auto"
           >
             <Input
               type="email"
               placeholder="Enter your email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/60"
+              className="bg-white/10 border-white/20 text-white placeholder:text-white/60"
               required
             />
-            <Button 
-              type="submit" 
-              variant="outline" 
-              size="lg" 
-              className="font-semibold whitespace-nowrap"
-              disabled={isSubmitting}
-              onMouseEnter={handleConfetti}
-            >
-              {isSubmitting ? 'Signing up...' : 'Get started for free'}
-            </Button>
-          </motion.form>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <Button 
+                type="button" 
+                variant="outline" 
+                size="lg" 
+                className="font-semibold whitespace-nowrap"
+                disabled={isSubmitting}
+                onClick={() => handleSubmit('developer')}
+              >
+                {isSubmitting ? 'Signing up...' : 'I want to access data'}
+              </Button>
+              <Button 
+                type="button" 
+                variant="outline" 
+                size="lg" 
+                className="font-semibold whitespace-nowrap"
+                disabled={isSubmitting}
+                onClick={() => handleSubmit('institution')}
+              >
+                {isSubmitting ? 'Signing up...' : 'I want to provide data'}
+              </Button>
+            </div>
+          </motion.div>
           
           {isSuccess && (
             <motion.div
