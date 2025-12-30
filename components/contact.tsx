@@ -50,7 +50,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: 'Address',
-      content: '126 Border St,\nBoston, MA 02128',
+      content: 'Boston, MA, United States',
     },
   ];
 
