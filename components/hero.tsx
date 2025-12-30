@@ -268,7 +268,7 @@ const Hero = () => {
           </motion.div>
 
           {/* Loved by thousands badge */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -285,7 +285,7 @@ const Hero = () => {
               </div>
             </div>   
             <div className="text-center text-muted-foreground text-sm font-medium">Trusted by developers and institutions</div>
-          </motion.div>
+          </motion.div> */}
 
           {/* Terminal Animation */}
           <TerminalAnimation />
