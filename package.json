@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
-    "build": "next build && mkdir -p docs/beta && cp -r out/* docs/beta/ && cp public/index.html docs/index.html",
+    "build": "next build && mkdir -p docs && cp -r out/* docs/",
     "start": "next start",
     "lint": "next lint",
     "clean": "rm -rf .next out node_modules"
