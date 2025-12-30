@@ -18,7 +18,7 @@ nvm use
 npm install
 ```
 
-## Getting Started
+## Preview
 
 Run the development server:
 
@@ -27,3 +27,17 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+To remove build artifacts and cache:
+
+```bash
+npm run clean
+```
+
+## Publish
+Push the changes to the repository and the GitHub Workflow will publish the website.
+
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
