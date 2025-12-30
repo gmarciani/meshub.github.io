@@ -35,6 +35,18 @@ npm run clean
 ```
 
 ## Publish
+
+Build the website to be served by GitHub Pages
+
+```bash
+npm run build
+```
+
+This will:
+1. Build the Next.js app to the `out` directory
+2. Copy the necessary files to `docs/` for GitHub Pages
+3. Preserve existing files in `docs/` (like index.html, CNAME, images)
+
 Push the changes to the repository and the GitHub Workflow will publish the website.
 
 
