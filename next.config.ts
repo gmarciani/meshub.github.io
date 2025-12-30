@@ -2,9 +2,9 @@
 const nextConfig = {
 	output: 'export',
 	distDir: 'out',
-	basePath: '/beta',
+	basePath: '',
 	env: {
-		NEXT_PUBLIC_BASE_PATH: '/beta',
+		NEXT_PUBLIC_BASE_PATH: '',
 	},
 	images: {
 		unoptimized: true,
