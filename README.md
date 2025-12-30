@@ -13,7 +13,7 @@
 
 Install dependencies:
 
-```bash
+```shell
 nvm use
 npm install
 ```
@@ -22,7 +22,7 @@ npm install
 
 Run the development server:
 
-```bash
+```shell
 npm run dev
 ```
 
@@ -30,7 +30,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 To remove build artifacts and cache:
 
-```bash
+```shell
 npm run clean
 ```
 
@@ -38,7 +38,7 @@ npm run clean
 
 Build the website to be served by GitHub Pages
 
-```bash
+```shell
 npm run build
 ```
 
