@@ -6,8 +6,8 @@
 
 ## Requirements
 
-- [Node.js](https://nodejs.org/): Version 18.x or higher
-- [npm](https://www.npmjs.com/): Version 9.x or higher (comes with Node.js)
+- [Node.js](https://nodejs.org/): Version 24.x or higher
+- [npm](https://www.npmjs.com/): Version 11.x or higher (comes with Node.js)
 
 ## Installation
 
